@@ -12,7 +12,7 @@ RESOURCES += qml.qrc
 INCLUDEPATH += $$PWD/include
 
 INCLUDEPATH += /usr/include/tensorflow/lite
-LIBS += -ltensorflow-lite
+LIBS += -L/usr/lib -ltensorflowlite
 
 INCLUDEPATH += /usr/include/opencv4
 LIBS += -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_imgcodecs
