@@ -25,7 +25,7 @@ Window {
            // onClicked: fileDialog.open()
             onClicked: {
                 rect.showImage = true
-                AiModel.loadImage("file:///root/AiModel/owl.jpeg")
+                AiModel.loadImage()
                 AiModel.predict()
             }
         }
