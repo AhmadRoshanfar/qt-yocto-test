@@ -30,7 +30,8 @@ void AIModel::loadImage()
 
     // Load Input Image
     cv::Mat image;
-    frame = cv::imread("/root/AiModel/owl.jpeg");
+    QString imagePath = QDir::homePath() + "/AiModel/owl.jpeg";
+    frame = cv::imread(imagePath.toStdString());
     if (frame.empty())
     {
         qDebug() << "Failed to load image";
