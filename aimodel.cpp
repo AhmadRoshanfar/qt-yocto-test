@@ -20,7 +20,7 @@ AIModel::AIModel(QObject *parent)
     m_interpreter->SetNumThreads(1);
 }
 
-void AIModel::loadImage(QUrl path)
+void AIModel::loadImage()
 {
     int input = m_interpreter->inputs()[0];
     auto height = m_interpreter->tensor(input)->dims->data[1];
@@ -29,7 +29,7 @@ void AIModel::loadImage(QUrl path)
 
     // Load Input Image
     cv::Mat image;
-    frame = cv::imread(path.toLocalFile().toStdString());
+    frame = cv::imread("/root/AiModel/owl.jpeg");
     if (frame.empty())
     {
         qDebug() << "Failed to load image";
