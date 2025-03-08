@@ -28,7 +28,7 @@ public:
     void loadLabels(QString filePath);
     void loadModel(QString path);
 
-    Q_INVOKABLE void loadImage(QUrl path);
+    Q_INVOKABLE void loadImage();
     Q_INVOKABLE void predict();
 
     QString label() const;
