@@ -10,9 +10,9 @@ if (!(x))                                                         \
 AIModel::AIModel(QObject *parent)
     : QObject{parent}
 {
-    QString projectPath = QDir::currentPath() + "/../../";
-    qDebug()<<projectPath ;
-    QString modelPath = projectPath + "AiModel/mobilenet.tflite";
+    // QString projectPath = QDir::currentPath() + "/../../";
+    // qDebug()<<projectPath ;
+    QString modelPath = QDir::homePath() + "AiModel/mobilenet.tflite";
     loadLabels(":/AiModel/labels.txt");
     loadModel(modelPath);
 
