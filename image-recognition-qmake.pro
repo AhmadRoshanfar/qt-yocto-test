@@ -11,8 +11,9 @@ SOURCES += \
 RESOURCES += qml.qrc
 INCLUDEPATH += $$PWD/include
 
-CONFIG += link_pkgconfig
-PKGCONFIG += opencv4
+INCLUDEPATH += /usr/include/opencv4
+LIBS += -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_imgcodecs
+
 LIBS += -L$$PWD/libs -ltensorflowlite
 QMAKE_RPATHDIR += $$PWD/libs
 
