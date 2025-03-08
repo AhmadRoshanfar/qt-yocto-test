@@ -82,6 +82,9 @@ void AIModel::loadModel(QString path)
 
 void AIModel::predict()
 {
+        if (!m_interpreter) {
+        qDebug() << "NULL INTERPRETER";
+    }
     TFLITE_MINIMAL_CHECK(m_interpreter->Invoke() == kTfLiteOk);
     qDebug() << "\n\n=== Post-invoke Interpreter State ===\n";
 
