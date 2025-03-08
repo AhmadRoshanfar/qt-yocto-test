@@ -23,9 +23,11 @@ Window {
             Layout.preferredHeight: 50
             Layout.alignment: Qt.AlignCenter
            // onClicked: fileDialog.open()
-            rect.showImage = true
-            AiModel.loadImage("file:///root/AiModel/owl.jpeg")
-            AiModel.predict()
+            onClicked: {
+                rect.showImage = true
+                AiModel.loadImage("file:///root/AiModel/owl.jpeg")
+                AiModel.predict()
+            }
         }
 
         Rectangle {
