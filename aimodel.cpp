@@ -26,6 +26,7 @@ void AIModel::loadImage()
     auto height = m_interpreter->tensor(input)->dims->data[1];
     auto width = m_interpreter->tensor(input)->dims->data[2];
     auto channels = m_interpreter->tensor(input)->dims->data[3];
+            qDebug() << "1";
 
     // Load Input Image
     cv::Mat image;
@@ -35,8 +36,14 @@ void AIModel::loadImage()
         qDebug() << "Failed to load image";
     }
     // Copy image to input tensor
+            qDebug() << "2";
+
     cv::resize(frame, image, cv::Size(width, height), cv::INTER_NEAREST);
+                qDebug() << "3";
+
     memcpy(m_interpreter->typed_input_tensor<unsigned char>(0), image.data, image.total() * image.elemSize());
+                qDebug() << "4";
+
 }
 
 void AIModel::loadLabels(QString filePath)
