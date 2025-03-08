@@ -12,7 +12,7 @@ AIModel::AIModel(QObject *parent)
 {
     // QString projectPath = QDir::currentPath() + "/../../";
     // qDebug()<<projectPath ;
-    QString modelPath = QDir::homePath() + "AiModel/mobilenet.tflite";
+    QString modelPath = QDir::homePath() + "/AiModel/mobilenet.tflite";
     loadLabels(":/AiModel/labels.txt");
     loadModel(modelPath);
 
