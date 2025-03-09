@@ -22,12 +22,7 @@ Window {
             Layout.preferredWidth: 200
             Layout.preferredHeight: 50
             Layout.alignment: Qt.AlignCenter
-           // onClicked: fileDialog.open()
-            onClicked: {
-                rect.showImage = true
-                AiModel.loadImage()
-                AiModel.predict()
-            }
+           onClicked: fileDialog.open()
         }
 
         Rectangle {

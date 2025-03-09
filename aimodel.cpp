@@ -3,48 +3,36 @@
 #define TFLITE_MINIMAL_CHECK(x)                                   \
 if (!(x))                                                         \
     {                                                             \
-            fprintf(stderr, "Error at %s:%d\n", __FILE__, __LINE__);  \
-            exit(1);                                                  \
+        fprintf(stderr, "Error at %s:%d\n", __FILE__, __LINE__);  \
+        exit(1);                                                  \
     }
 
 AIModel::AIModel(QObject *parent)
     : QObject{parent}
 {
-    // QString projectPath = QDir::currentPath() + "/../../";
-    // qDebug()<<projectPath ;
     QString modelPath = QDir::homePath() + "/AiModel/mobilenet.tflite";
     loadLabels(":/AiModel/labels.txt");
     loadModel(modelPath);
-
     m_interpreter->SetAllowFp16PrecisionForFp32(true);
     m_interpreter->SetNumThreads(1);
 }
 
-void AIModel::loadImage()
+void AIModel::loadImage(QUrl path)
 {
     int input = m_interpreter->inputs()[0];
     auto height = m_interpreter->tensor(input)->dims->data[1];
     auto width = m_interpreter->tensor(input)->dims->data[2];
     auto channels = m_interpreter->tensor(input)->dims->data[3];
-            qDebug() << "1";
-
     // Load Input Image
     cv::Mat image;
-    QString imagePath = QDir::homePath() + "/AiModel/owl.jpeg";
-    frame = cv::imread(imagePath.toStdString());
+    frame = cv::imread(path.toLocalFile().toStdString());
     if (frame.empty())
     {
         qDebug() << "Failed to load image";
     }
     // Copy image to input tensor
-            qDebug() << "2";
-
     cv::resize(frame, image, cv::Size(width, height), cv::INTER_NEAREST);
-                qDebug() << "3";
-
     memcpy(m_interpreter->typed_input_tensor<unsigned char>(0), image.data, image.total() * image.elemSize());
-                qDebug() << "4";
-
 }
 
 void AIModel::loadLabels(QString filePath)
@@ -66,12 +54,11 @@ void AIModel::loadLabels(QString filePath)
 
 void AIModel::loadModel(QString path)
 {
-    std::unique_ptr<tflite::FlatBufferModel> model =
-        tflite::FlatBufferModel::BuildFromFile(path.toUtf8().constData());
-    TFLITE_MINIMAL_CHECK(model != nullptr);
+   m_model = tflite::FlatBufferModel::BuildFromFile(path.toUtf8().constData());
+    TFLITE_MINIMAL_CHECK(m_model != nullptr);
 
     tflite::ops::builtin::BuiltinOpResolver resolver;
-    tflite::InterpreterBuilder builder(*model, resolver);
+    tflite::InterpreterBuilder builder(*m_model, resolver);
     builder(&m_interpreter);
     TFLITE_MINIMAL_CHECK(m_interpreter != nullptr);
 
@@ -83,7 +70,7 @@ void AIModel::loadModel(QString path)
 
 void AIModel::predict()
 {
-        if (!m_interpreter) {
+    if (!m_interpreter) {
         qDebug() << "NULL INTERPRETER";
     }
     TFLITE_MINIMAL_CHECK(m_interpreter->Invoke() == kTfLiteOk);

@@ -12,12 +12,12 @@ RESOURCES += qml.qrc
 INCLUDEPATH += $$PWD/include
 
 INCLUDEPATH += /usr/include/tensorflow/lite
-LIBS += -L/usr/lib -ltensorflowlite
+# LIBS += -L/usr/lib -ltensorflowlite
 
 INCLUDEPATH += /usr/include/opencv4
 LIBS += -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_imgcodecs
 
-# LIBS += -L$$PWD/libs -ltensorflowlite
+LIBS += -L$$PWD/libs -ltensorflowlite
 # QMAKE_RPATHDIR += $$PWD/libs
 
 # Additional import path used to resolve QML modules in Qt Creator's code model

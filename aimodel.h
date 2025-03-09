@@ -28,7 +28,7 @@ public:
     void loadLabels(QString filePath);
     void loadModel(QString path);
 
-    Q_INVOKABLE void loadImage();
+    Q_INVOKABLE void loadImage(QUrl path);
     Q_INVOKABLE void predict();
 
     QString label() const;
@@ -47,6 +47,7 @@ private:
     cv::Mat frame;
     QString m_label;
     QString m_confidence;
+    std::unique_ptr<tflite::FlatBufferModel> m_model;
 };
 
 #endif // AIMODEL_H
